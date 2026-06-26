@@ -6,7 +6,7 @@ import { drawBanner } from "../utils/banner.js";
 import chalkAnimation from "chalk-animation";
 import { greeting_constants, loading_constants } from "../constants/constant.js";
 import Conf from 'conf';
-import { get_user , get_ai_data, take_ai_input, main_menu } from "../controller/controller.js";
+import { get_user , get_ai_data, take_ai_input, main_menu, change_ai } from "../controller/controller.js";
 import { take_input } from "../utils/take_inputs.js";
 
 
@@ -98,22 +98,7 @@ export const  wakeup = async()=>{
         // idhar se hoga main menu 
         let main_menu_result = await main_menu();
         if(main_menu_result.menu=="change_ai"){
-            while(true){
-                config.delete('ai');
-                const change_ai_result = await take_ai_input(config);
-                if(change_ai_result.success){
-                    console.log("\n ------------------------------------------------------------ \n")
-                    console.log(` Selected ${chalk.green(change_ai_result.ai_data.ai_type)} as AI provider and ${chalk.yellow(change_ai_result.ai_data.model)} as model`);
-                    console.log("\n ----------------------------------------------------------- \n")
-                }else{
-                    console.log(chalk.red(change_ai_result.message));
-                    break;
-                }
-                main_menu_result = await main_menu();
-                if(main_menu_result.menu != "change_ai"){
-                    break;
-                }
-            }
+           change_ai(config,main_menu_result);
         }
 
     } catch (error) {
