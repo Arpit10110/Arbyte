@@ -1,5 +1,7 @@
 import { text , select } from '@clack/prompts';
 import chalk from "chalk";
+import { ask_prompt } from '../prompt/ask';
+import { GoogleGenAI } from "@google/genai";
 
 export const get_user = (config)=>{
  try {
@@ -136,10 +138,36 @@ export const change_ai = async(config)=>{
 }
 
 
-export const ai_chat = async(config)=>{
+export const ai_chat = async(ai_config)=>{
   try {
-    
-  } catch (error) {
+    const ai_type = ai_config.ai_type;
+    const model = ai_config.model;
+    const api_key = ai_config.api_key;
+
+    if(ai_type=="Gemini"){
+      const ai = new GoogleGenAI({
+        apiKey: api_key,
+      });
+     // default first message of ai 
+      const chat = {
+        ai:"  ",
+      }
+      
+
+
+
+      const interaction = await ai.interactions.create({
+        model: model,
+        input: " ",
+      });
+      console.log(interaction.output_text);
+    }
+    else if(ai_type=="OpenRouter"){
+
+
+    }
+
+  }catch (error) {
     console.error(chalk.red(error));
   }
 }

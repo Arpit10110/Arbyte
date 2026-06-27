@@ -63,3 +63,39 @@ export const loading_constants = [
     "😤 We don't quit. We deploy.",
     "👀 Alright... impress me."
   ];
+
+  export const default_ai_messages= [
+    "👋 Hey! What's on your mind today?",
+    "🚀 Alright, what are we building?",
+    "💭 Throw me your best question.",
+    "⚡ I'm all ears. What's up?",
+    "🎯 Let's solve something interesting.",
+    "🤝 Good to see you! What's today's mission?",
+    "💻 Got an idea? Let's explore it.",
+    "🔥 What's the first challenge?",
+    "🧠 Ready whenever you are.",
+    "✨ Ask me anything.",
+    "🚀 Let's turn ideas into reality.",
+    "👀 What's today's rabbit hole?",
+    "🎨 Building, debugging or brainstorming?",
+    "🛠️ What are we working on today?",
+    "💡 Every great project starts with a question.",
+    "😎 Hit me with it.",
+    "⚡ What's the move?",
+    "🌌 Curious about something?",
+    "🚧 Let's figure it out together.",
+    "☕ Coffee's ready. What's next?"
+  ];
+
+  export const thinking_messages = [
+    "🧠 Thinking...",
+    "💭 Connecting the dots...",
+    "⚡ Processing...",
+    "🤔 One sec...",
+    "📚 Looking into it...",
+    "🚀 Thinking at terminal speed...",
+    "🔍 Digging deeper...",
+    "🛠️ Putting the pieces together...",
+    "✨ Almost there...",
+    "👀 Looking into it..."
+  ];
