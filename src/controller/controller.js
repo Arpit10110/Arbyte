@@ -134,3 +134,12 @@ export const change_ai = async(config)=>{
         console.log(chalk.red(change_ai_result.message));
     }
 }
+
+
+export const ai_chat = async(config)=>{
+  try {
+    
+  } catch (error) {
+    console.error(chalk.red(error));
+  }
+}

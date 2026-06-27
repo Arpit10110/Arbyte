@@ -8,7 +8,7 @@ import { greeting_constants, loading_constants } from "../constants/constant.js"
 import Conf from 'conf';
 import { get_user , get_ai_data, take_ai_input, main_menu, change_ai } from "../controller/controller.js";
 import { take_input } from "../utils/take_inputs.js";
-
+import { v4 as uuidv4 } from 'uuid'
 
 const config = new Conf({projectName: 'arbyte'});
 
@@ -104,6 +104,8 @@ export const  wakeup = async()=>{
             await change_ai(config);
         }
         else if(main_menu_result.menu=="ai_chat"){
+            const ai_config = config.get('ai');
+            await ai_chat(ai_config);
             // ai_chat(config,main_menu_result);
         }
         else if(main_menu_result.menu=="ai_agent"){
@@ -113,7 +115,6 @@ export const  wakeup = async()=>{
             break;
         }
         }
-
     } catch (error) {
         console.error(chalk.red(error));
     }
