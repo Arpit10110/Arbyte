@@ -95,10 +95,23 @@ export const  wakeup = async()=>{
          console.log(` Selected ${chalk.green(ai.ai.ai_type)} as AI provider and ${chalk.yellow(ai.ai.model)} as model`);
         console.log("\n ------------------------------------------------------------ \n")
 
-        // idhar se hoga main menu 
+
+        //idhar se hoga main loop 
+
+        while(true){
         let main_menu_result = await main_menu();
         if(main_menu_result.menu=="change_ai"){
-           change_ai(config,main_menu_result);
+            await change_ai(config);
+        }
+        else if(main_menu_result.menu=="ai_chat"){
+            // ai_chat(config,main_menu_result);
+        }
+        else if(main_menu_result.menu=="ai_agent"){
+            // ai_agent(config,main_menu_result);
+        }
+        else if(main_menu_result.menu=="exit"){
+            break;
+        }
         }
 
     } catch (error) {
