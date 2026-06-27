@@ -1,7 +1,9 @@
-import { text , select } from '@clack/prompts';
+import { text , select, box } from '@clack/prompts';
 import chalk from "chalk";
-import { ask_prompt } from '../prompt/ask';
+import { ask_prompt } from '../prompt/ask.js';
 import { GoogleGenAI } from "@google/genai";
+import { thinking_messages , default_ai_messages  } from '../constants/constant.js';
+import { spinner } from '@clack/prompts';
 
 export const get_user = (config)=>{
  try {
@@ -143,24 +145,51 @@ export const ai_chat = async(ai_config)=>{
     const ai_type = ai_config.ai_type;
     const model = ai_config.model;
     const api_key = ai_config.api_key;
-
+    const spin = spinner();
     if(ai_type=="Gemini"){
       const ai = new GoogleGenAI({
         apiKey: api_key,
       });
      // default first message of ai 
-      const chat = {
-        ai:"  ",
+     const default_ai_message = default_ai_messages[Math.floor(Math.random() * default_ai_messages.length)];
+      const chat = [
+        {
+          role:"ai",
+          message:default_ai_message,
+        }
+
+      ]
+      console.log(`${chalk.hex("#C6FF33")("🤖 arbyte :  ")}${ chalk.hex("#C6FF33")(chat[0].message)}`); 
+      while(true){
+         const user_input = await text({
+          message: "❯",
+          placeholder: "Ask me anything...",
+          style: {
+            border: "round",
+            padding: 1,
+          },
+         });
+         if (!user_input) continue;
+         if (["exit","quit"].includes(user_input.trim().toLowerCase())){
+          break;
+         }
+         spin.start(thinking_messages[Math.floor(Math.random() * thinking_messages.length)]);
+         console.log('\n');
+         const interaction = await ai.interactions.create({
+          model: model,
+          input: `hey this is the user input ${user_input} and this is the chat history ${JSON.stringify(chat)} and this is system context ${ask_prompt}`,
+        });
+        spin.stop();
+        console.log(chalk.hex("#C6FF33")(`🤖 arbyte : ${interaction.output_text}`));
+        chat.push({
+          role:"user",
+          message:user_input,
+        });
+        chat.push({
+          role:"ai",
+          message:interaction.output_text,
+        });
       }
-      
-
-
-
-      const interaction = await ai.interactions.create({
-        model: model,
-        input: " ",
-      });
-      console.log(interaction.output_text);
     }
     else if(ai_type=="OpenRouter"){
 
